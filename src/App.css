@@ -22,3 +22,32 @@
   from { transform: scale(1); }
   to { transform: scale(1.1); }
 }
+
+.Loading{
+    border-radius: 15px;
+    background: grey;
+    text-align: center;
+    padding: 10px; 
+    width: 200px;
+    height: 20px; 
+}
+
+.Success{
+  border-radius: 15px;
+  background: green;
+  padding: 10px;
+  width: 200px;
+  height: 20px; 
+}
+
+.Error{
+  border-radius: 15px;
+  background: red;
+  padding: 10px; 
+  width: 200px;
+  height: 20px;
+}
+
+.btn{
+  float: right;  
+}
