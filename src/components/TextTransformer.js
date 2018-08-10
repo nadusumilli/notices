@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 export default class TextTransformer extends Component {
+
     constructor(props){
         super(props);
         // Creating a ref for the notification div.
@@ -11,7 +12,8 @@ export default class TextTransformer extends Component {
     state = {
         currentValue: '',
         status: null,
-        message: null
+        message: null,
+        timeout: null
     }
 
     static propTypes = {
@@ -39,17 +41,21 @@ export default class TextTransformer extends Component {
 
         // Displaying the notification block on submit.
         // Timeout for the notification block.
+        clearTimeout(this.state.timeout);
         this.notificationDiv.current.style.display = 'block';
         if(this.notificationDiv.current){
-            setTimeout(() => {
-                this.notificationDiv.current.style.display= 'none'
-            },3000)
+            this.setState({
+                timeout: setTimeout(() => {
+                    this.notificationDiv.current.style.display= 'none'
+                },3000)
+            })
         }
     }
 
     removeDiv(event){
         event.preventDefault();
         event.target.parentElement.style.display = "none";
+        clearTimeout(this.state.timeout);
     }
 
     render() {
