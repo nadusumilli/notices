@@ -2,16 +2,30 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 export default class TextTransformer extends Component {
+    constructor(props){
+        super(props);
+        // Creating a ref for the notification div.
+        this.notificationDiv = React.createRef();
+    }
+    
     state = {
         currentValue: '',
-        status: null
+        status: null,
+        message: null
     }
 
     static propTypes = {
         mode: PropTypes.oneOf(['lower', 'upper']),
         transformToLowerCase: PropTypes.func.isRequired,
         transformToUpperCase: PropTypes.func.isRequired,
-        transformedValue: PropTypes.string
+        transformedValue: PropTypes.string,
+        status: PropTypes.string,
+        message: PropTypes.string
+    }
+
+    componentDidMount(){
+        // Hiding the notification block on start.
+        this.notificationDiv.current.style.display = 'none';
     }
 
     handleChange = e => this.setState({ currentValue: e.target.value })
@@ -22,22 +36,14 @@ export default class TextTransformer extends Component {
         const action = mode === 'upper' ? transformToUpperCase : transformToLowerCase
         e.preventDefault()
         action(currentValue)
-    }
 
-    componentWillUpdate(nextProps, nextState){
-        if(this.props.isLoading !== nextProps.isLoading || this.props.isSuccess !== nextProps.isSuccess){            
-            if(nextProps.isSuccess){
-                this.setState({ status: 'Success' });
-            }
-            else if(!nextProps.isSuccess && !nextProps.isLoading){
-                this.setState({ status: 'Error' });
-            }
-            else if(nextProps.isLoading){
-                this.setState({ status: 'Loading' });
-            }
-            else{
-                this.setState({ status: null });
-            }
+        // Displaying the notification block on submit.
+        // Timeout for the notification block.
+        this.notificationDiv.current.style.display = 'block';
+        if(this.notificationDiv.current){
+            setTimeout(() => {
+                this.notificationDiv.current.style.display= 'none'
+            },4000)
         }
     }
 
@@ -57,7 +63,15 @@ export default class TextTransformer extends Component {
                     <button type="submit">Transform Text</button>
                 </form>
                 <p>Transformed Text: {transformedValue}</p>
-                <div className={this.state.status}>{this.state.status} <button onClick={(event) => this.removeDiv(event)} className="btn">&times;</button></div>
+
+                {/* Notifications in place. */}
+                <div ref={this.notificationDiv} className={this.props.status}>
+                    {this.props.message}
+                    <button onClick={(event) => this.removeDiv(event)} className="btn">
+                        &times;
+                    </button>
+                </div>
+
             </div>
         )
     }
