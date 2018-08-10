@@ -43,7 +43,7 @@ export default class TextTransformer extends Component {
         if(this.notificationDiv.current){
             setTimeout(() => {
                 this.notificationDiv.current.style.display= 'none'
-            },4000)
+            },3000)
         }
     }
 
