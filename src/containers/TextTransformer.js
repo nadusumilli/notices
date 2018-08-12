@@ -6,7 +6,7 @@ const mapStateToProps = state => ({
     transformedValue: state.textTransform.transformedValue,
     isLoading: state.textTransform.isLoading,
     isSuccess: state.textTransform.isSuccess,
-    status: state.notification.status,
+    class: state.notification.class,
     message: state.notification.message,
 })
 

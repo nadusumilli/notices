@@ -9,13 +9,13 @@ const LOADING = 'loading'
 
 const showNotification = (message, type = LOADING) => dispatch => {
     if(type === LOADING){
-        dispatch({ type: NOTIFICATION_LOAD, payload: message })
+        dispatch({ type: NOTIFICATION_LOAD, payload: { class: 'alert-loading', message: message} })
     }
     else if(type === SUCCESS){
-        dispatch({ type: NOTIFICATION_SUCCESS, payload: message })
+        dispatch({ type: NOTIFICATION_SUCCESS, payload: { class: 'alert-success', message: message } })
     }
     else if(type === ERROR){
-        dispatch({ type: NOTIFICATION_ERROR, payload: message })
+        dispatch({ type: NOTIFICATION_ERROR, payload: { class: 'alert-error', message: message } })
     }
 }
 
@@ -25,18 +25,18 @@ export const showErrorNotification = message => showNotification(message, ERROR)
 
 
 const initialState = {
-    status: 'alert-loading',
+    class: 'alert-loading',
     message: 'loading text'
 }
 
 export default function Notification(state = initialState, { type, payload }) {
     switch (type) {
         case NOTIFICATION_LOAD:
-            return { ...state, status: 'alert-loading', message: payload }
+            return { ...state, class: payload.class, message: payload.message }
         case NOTIFICATION_SUCCESS:
-            return { ...state, status: 'alert-success', message: payload }
+            return { ...state, class: payload.class, message: payload.message }
         case NOTIFICATION_ERROR:
-            return { ...state, status: 'alert-error', message: payload }
+            return { ...state, class: payload.class, message: payload.message }
         default: return state
     }
 }

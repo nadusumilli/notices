@@ -21,7 +21,7 @@ export default class TextTransformer extends Component {
         transformToLowerCase: PropTypes.func.isRequired,
         transformToUpperCase: PropTypes.func.isRequired,
         transformedValue: PropTypes.string,
-        status: PropTypes.string,
+        class: PropTypes.string,
         message: PropTypes.string
     }
 
@@ -39,6 +39,7 @@ export default class TextTransformer extends Component {
         e.preventDefault()
         action(currentValue)
 
+        // Clearing timeout in case the notification block is hidden from view.
         // Displaying the notification block on submit.
         // Timeout for the notification block.
         clearTimeout(this.state.timeout);
@@ -47,11 +48,12 @@ export default class TextTransformer extends Component {
             this.setState({
                 timeout: setTimeout(() => {
                     this.notificationDiv.current.style.display= 'none'
-                },3000)
+                },4000)
             })
         }
     }
 
+    // Hiding the notification block from the view once closed.
     removeDiv(event){
         event.preventDefault();
         event.target.parentElement.style.display = "none";
@@ -70,14 +72,13 @@ export default class TextTransformer extends Component {
                 </form>
                 <p>Transformed Text: {transformedValue}</p>
 
-                {/* Notifications in place. */}
-                <div ref={this.notificationDiv} className={this.props.status}>
+                {/* Notifications in place on top right. */}
+                <div ref={this.notificationDiv} className={this.props.class}>
                     {this.props.message}
-                    <button onClick={(event) => this.removeDiv(event)} className="btn">
+                    <span className="closebtn" onClick={(event) => this.removeDiv(event)}>
                         &times;
-                    </button>
+                    </span>
                 </div>
-
             </div>
         )
     }

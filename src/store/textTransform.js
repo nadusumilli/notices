@@ -14,23 +14,23 @@ const LOWERCASE = 'lowercase'
 const transformText = (input, mode = LOWERCASE) => dispatch => {
     // Declaring the messages for the notification.
     const successMessage = mode === LOWERCASE ? 'Successfully loaded lowercase.' : 'Successfully loaded uppercase';
-    const errorMessage = mode === LOWERCASE ? 'Error loaded lowercase.' : 'Error loaded uppercase';
+    const errorMessage = mode === LOWERCASE ? 'Error loading lowercase.' : 'Error loading uppercase';
     const loadingMessage = mode === LOWERCASE ? 'Loading lowercase.' : 'Loading uppercase';
     
     mode = mode.toLowerCase()
     const endpoint = mode === UPPERCASE ? UPPERCASE_ENDPOINT : LOWERCASE_ENDPOINT
 
-    // Sending the loading notification.
+    // Dispatching the loading notification with the appropriate message.
     dispatch(showLoadingNotification(loadingMessage));
     dispatch({ type: TRANSFORM_VALUE_LOAD})
     axios.post(endpoint, { input })
         .then(res => {
-                        // Sending the success notification.
+                        // Dispatching the success notification with the appropriate message.
                         dispatch(showSuccessNotification(successMessage));
                         dispatch({ type: TRANSFORM_VALUE_SUCCESS, payload: res.data})
                     })
         .catch(err => {
-                        // Sending the error notification.
+                        // Dispatching the error notification with the appropriate message.
                         dispatch(showErrorNotification(errorMessage));
                         dispatch({ type: TRANSFORM_VALUE_ERROR, payload: err})
                     })

@@ -23,31 +23,58 @@
   to { transform: scale(1.1); }
 }
 
+
+/* Below is the styling for the notification box. */
 .alert-loading{
     border-radius: 15px;
-    background: grey;
+    background: #2196F3; /* Blue */
+    color: white;
     text-align: center;
     padding: 10px; 
     width: 200px;
-    height: 20px; 
+    height: 20px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
 }
 
 .alert-success{
   border-radius: 15px;
-  background: green;
+  background: #4CAF50; /* Green */
+  color: white;
   padding: 10px;
   width: 300px;
   height: 20px; 
+  position: absolute;
+  top: 30px;
+  right: 30px;
 }
 
 .alert-error{
   border-radius: 15px;
-  background: red;
+  background-color: #f44336; /* Red */
+  color: white;
   padding: 10px; 
   width: 250px;
   height: 20px;
+  position: absolute;
+  top: 30px;
+  right: 30px;
 }
 
-.btn{
-  float: right;  
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
 }
